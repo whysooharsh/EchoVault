@@ -1,5 +1,27 @@
-function Homepage() { 
-  
+import React, { useEffect } from 'react';
+
+function Homepage() {
+  // Inject keyframes for the animation
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes pulse {
+        0% { stroke-dashoffset: 1000; }
+        100% { stroke-dashoffset: 0; }
+      }
+      
+      @keyframes wave {
+        0% { transform: translateY(0%); }
+        50% { transform: translateY(-5%); }
+        100% { transform: translateY(0%); }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
   
   return (
     <div
@@ -18,7 +40,7 @@ function Homepage() {
           padding: 0;
           box-sizing: border-box;
           background-color: wheat;
-          font-family : Fredoka;
+          font-family: Fredoka;
         }
       `}</style>
 
@@ -50,7 +72,6 @@ function Homepage() {
             maxWidth: "50%",
             textAlign: "center",
             margin: "7px auto",
-            
           }}
         >
           Write to your future self, set a time lock, and let AI bring your past
@@ -58,37 +79,152 @@ function Homepage() {
         </div>
         <br></br>
         <div style={{
-          display : "flex",
-          gap : "40px",
-
+          display: "flex",
+          gap: "40px",
         }}>
-        <button style={{
-          padding : "10px",
-          borderRadius : "12px",
-          cursor : "pointer",
-          fontSize : "16px",
-          width : "80px",
-
-        }}>SignUp</button>
-        <button style={{
-          padding : "10px",
-          borderRadius : "12px",
-          cursor : "pointer",
-          fontSize : "16px",
-          width : "80px",
-
-        }}>Login</button>
+          <button style={{
+            padding: "10px",
+            borderRadius: "12px",
+            cursor: "pointer",
+            fontSize: "16px",
+            width: "80px",
+          }}>SignUp</button>
+          <button style={{
+            padding: "10px",
+            borderRadius: "12px",
+            cursor: "pointer",
+            fontSize: "16px",
+            width: "80px",
+          }}>Login</button>
         </div>
       </div>
-      {/* next part  */}
+      
       <div
         style={{
           flex: "1",
-          backgroundImage: "url('./assets/file.webp)",
-          backgroundSize: 'cover',  
-          backgroundPosition: 'center',  
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          position: "relative",
+          overflow: "hidden",
         }}
-      ></div>
+      >
+        <svg
+          viewBox="0 0 600 300"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            width: "80%",
+            height: "80%",
+          }}
+        >
+      
+          <path
+            d="M0 150 Q 50 50, 100 150 Q 150 250, 200 150 Q 250 50, 300 150 Q 350 250, 400 150 Q 450 50, 500 150 Q 550 250, 600 150"
+            style={{
+              stroke: "rgba(48, 165, 255, 0.8)",
+              strokeWidth: "3",
+              fill: "none",
+            //  animation: "wave 4s ease-in-out infinite",
+            }}
+          />
+          
+      
+          <path
+            d="M0 150 Q 50 80, 100 150 Q 150 220, 200 150 Q 250 80, 300 150 Q 350 220, 400 150 Q 450 80, 500 150 Q 550 220, 600 150"
+            style={{
+              stroke: "rgba(255, 186, 23, 0.8)",
+              strokeWidth: "3",
+              fill: "none",
+             // animation: "wave 3s ease-in-out infinite",
+              animationDelay: "0.25s",
+            }}
+          />
+          
+ 
+          <path
+            d="M0 150 Q 50 100, 100 150 Q 150 200, 200 150 Q 250 100, 300 150 Q 350 200, 400 150 Q 450 100, 500 150 Q 550 200, 600 150"
+            style={{
+              stroke: "rgba(255, 134, 111, 0.8)",
+              strokeWidth: "3",
+              fill: "none",
+             // animation: "wave 5s ease-in-out infinite",
+              animationDelay: "0.5s",
+            }}
+          />
+          
+        
+          <path
+            d="M0 150 Q 50 120, 100 150 Q 150 180, 200 150 Q 250 120, 300 150 Q 350 180, 400 150 Q 450 120, 500 150 Q 550 180, 600 150"
+            style={{
+              stroke: "rgba(151, 0, 244, 0.8)",
+              strokeWidth: "3",
+              fill: "none",
+             // animation: "wave 6s ease-in-out infinite",
+              animationDelay: "0.75s",
+            }}
+          />
+
+    
+          <path
+            d="M0 150 Q 50 50, 100 150 Q 150 250, 200 150 Q 250 50, 300 150 Q 350 250, 400 150 Q 450 50, 500 150 Q 550 250, 600 150"
+            style={{
+              stroke: "rgba(255, 255, 255, 0.5)",
+              strokeWidth: "3",
+              fill: "none",
+              strokeDasharray: "12, 12",
+             // animation: "pulse 8s linear infinite",
+              filter: "blur(2px)",
+              opacity: "0.7",
+            }}
+          />
+          
+
+          <path
+            d="M0 150 Q 50 80, 100 150 Q 150 220, 200 150 Q 250 80, 300 150 Q 350 220, 400 150 Q 450 80, 500 150 Q 550 220, 600 150"
+            style={{
+              stroke: "rgba(255, 255, 255, 0.5)",
+              strokeWidth: "3",
+              fill: "none",
+              strokeDasharray: "12, 12",
+              animation: "pulse 8s linear infinite",
+              animationDelay: "0.25s",
+              filter: "blur(2px)",
+              opacity: "0.7",
+            }}
+          />
+          
+
+          <path
+            d="M0 150 Q 50 100, 100 150 Q 150 200, 200 150 Q 250 100, 300 150 Q 350 200, 400 150 Q 450 100, 500 150 Q 550 200, 600 150"
+            style={{
+              stroke: "rgba(255, 255, 255, 0.5)",
+              strokeWidth: "3",
+              fill: "none",
+              strokeDasharray: "12, 12",
+              animation: "pulse 8s linear infinite",
+              animationDelay: "0.5s",
+              filter: "blur(2px)",
+              opacity: "0.7",
+            }}
+          />
+          
+     
+          <path
+            d="M0 150 Q 50 120, 100 150 Q 150 180, 200 150 Q 250 120, 300 150 Q 350 180, 400 150 Q 450 120, 500 150 Q 550 180, 600 150"
+            style={{
+              stroke: "rgba(255, 255, 255, 0.5)",
+              strokeWidth: "3",
+              fill: "none",
+              strokeDasharray: "12, 12",
+              animation: "pulse 8s linear infinite",
+              animationDelay: "0.75s",
+              filter: "blur(2px)",
+              opacity: "0.7",
+            }}
+          />
+        </svg>
+      </div>
     </div>
   );
 }
