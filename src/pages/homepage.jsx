@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 
-
-
 function Homepage() {
 
   const [signup, setsignup] = useState(false);
@@ -70,7 +68,7 @@ function Homepage() {
             margin: "0 auto",
           }}
         >
-          <div>Where the past echos, future listens</div>
+          <div>Where the past echoes, future listens</div>
         </div>
 
         <div

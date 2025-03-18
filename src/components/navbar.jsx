@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [scrolling, setScrolling] = useState(false);
@@ -51,6 +50,7 @@ function Navbar() {
           padding: "8px",
         }}
       >
+         <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
         <div
           style={{
             fontSize: "2rem",
@@ -60,6 +60,7 @@ function Navbar() {
         >
           echo.vault
         </div>
+        </Link>
 
         <div
           style={{
@@ -69,10 +70,13 @@ function Navbar() {
             marginRight: "100px",
           }}
         >
-          <div style={{ 
-            cursor: "pointer",            
-            }}>explore</div>
-          <div style={{ cursor: "pointer" }}>about us</div>
+          <Link to="/explore" style={{ textDecoration: "none", color: "inherit" }}>
+            <div style={{ cursor: "pointer" }}>explore</div>
+          </Link>
+          <Link to="/aboutus" style={{ textDecoration: "none", color: "inherit" }}>
+            <div style={{ cursor: "pointer" }}>about us</div>
+          </Link>
+          <Link to="/signup" style={{ textDecoration: "none", color: "inherit" }}>
           <button
             style={{
               backgroundColor: hover ? "black" : "transparent",
@@ -109,6 +113,7 @@ function Navbar() {
             />
 
           </button>
+          </Link>
         </div>
       </div>
     </div>
