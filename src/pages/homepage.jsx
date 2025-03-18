@@ -1,7 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
+
+
 
 function Homepage() {
-  // Inject keyframes for the animation
+
+  const [signup, setsignup] = useState(false);
+  const [login, setlogin] = useState(false);
+
   useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
@@ -83,19 +89,33 @@ function Homepage() {
           gap: "40px",
         }}>
           <button style={{
+            backgroundColor : signup ? "black" : "transparent",
+            color : signup ? "white" : "black",
+            transition : "ease-in 0.3s",
             padding: "10px",
             borderRadius: "12px",
             cursor: "pointer",
             fontSize: "16px",
             width: "80px",
-          }}>SignUp</button>
+          }}
+        onMouseEnter={() => setsignup(true)}
+        onMouseLeave={() => setsignup(false)}
+
+          >SignUp</button>
           <button style={{
+            backgroundColor : login ? "black" : "transparent",
+            color : login ? "white" : "black",
+            transition : "ease-in 0.3s",
             padding: "10px",
             borderRadius: "12px",
             cursor: "pointer",
             fontSize: "16px",
             width: "80px",
-          }}>Login</button>
+          }}
+        onMouseEnter={() => setlogin(true)}
+        onMouseLeave={() => setlogin(false)}
+
+          >Login</button>
         </div>
       </div>
       
