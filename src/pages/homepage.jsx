@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 function Homepage() {
-
+  const navigate = useNavigate();
   const [signup, setsignup] = useState(false);
   const [login, setlogin] = useState(false);
+
+  const handleClick1 = () => {
+    navigate("/signup"); 
+  };
+  const handleClick2 = () => {
+    navigate("/login");
+  };
 
   useEffect(() => {
     const style = document.createElement('style');
@@ -86,7 +94,7 @@ function Homepage() {
           display: "flex",
           gap: "40px",
         }}>
-          <button style={{
+          <button onClick={handleClick1} style={{
             backgroundColor : signup ? "black" : "transparent",
             color : signup ? "white" : "black",
             transition : "ease-in 0.3s",
@@ -100,7 +108,8 @@ function Homepage() {
         onMouseLeave={() => setsignup(false)}
 
           >SignUp</button>
-          <button style={{
+          
+          <button onClick={handleClick2} style={{
             backgroundColor : login ? "black" : "transparent",
             color : login ? "white" : "black",
             transition : "ease-in 0.3s",
