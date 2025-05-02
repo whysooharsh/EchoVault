@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 function Navbar() {
   const [scrolling, setScrolling] = useState(false);
   const [hover, setHover] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleMouseEnter = () => setHover(true);
   const handleMouseLeave = () => setHover(false);
+  const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
   useEffect(() => {
     const scroll = () => {
@@ -26,93 +28,91 @@ function Navbar() {
 
   return (
     <div
-      style={{
-        fontFamily: "Fredoka",
-        height: "60px",
-        width: "100%",
-        backgroundColor: scrolling ? "rgba(245, 222, 179, 0.8)" : "transparent",
-        top: "0",
-        left: "0",
-        right: "0",
-        zIndex: "10", 
-        position: "fixed",
-        overflow: "hidden",
-        transition: "background-color 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease", 
-        backdropFilter: scrolling ? "blur(5px)" : "none", 
-        boxShadow: scrolling ? "0 4px 12px rgba(147, 143, 136, 0.6)" : "none", 
-      }}
+      className={`fixed top-0 left-0 right-0 z-50 h-16 w-full font-['Fredoka'] transition-all duration-300 ${
+        scrolling
+          ? "bg-amber-100/40 backdrop-blur shadow-lg"
+          : "bg-transparent"
+      }`}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "8px",
-        }}
-      >
-         <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-        <div
-          style={{
-            fontSize: "2rem",
-            fontWeight: "normal",
-            marginLeft: "20px",
-          }}
-        >
-          echo.vault
-        </div>
+      <div className="flex items-center justify-between px-4 md:px-8 h-full">
+        <Link to="/" className="text-inherit no-underline">
+          <div className="text-3xl font-normal ml-2 md:ml-5">echo.vault</div>
         </Link>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "160px",
-            marginRight: "100px",
-          }}
+    
+        <button 
+          className="md:hidden p-2" 
+          onClick={toggleMobileMenu}
+          aria-label="Toggle menu"
         >
-          <Link to="/explore" style={{ textDecoration: "none", color: "inherit" }}>
-            <div style={{ cursor: "pointer" }}>explore</div>
-          </Link>
-          <Link to="/aboutus" style={{ textDecoration: "none", color: "inherit" }}>
-            <div style={{ cursor: "pointer" }}>about us</div>
-          </Link>
-          <Link to="/signup" style={{ textDecoration: "none", color: "inherit" }}>
-          <button
-            style={{
-              backgroundColor: hover ? "black" : "transparent",
-              color : hover ? "white" : "black",
-              padding: "8px 16px",
-              fontSize: "16px",
-              fontFamily: "Fredoka",
-              fontWeight: "normal",
-              borderRadius: "8px",
-              transition : "0.2s ease",
-              cursor: "pointer",
-              transition: "background-color 0.3s ease, color 0.3s ease, transform 0.2s ease", 
-              transform: hover ? "scale(1.05)" : "scale(1)",
-              
-            }}
-            onMouseEnter = {handleMouseEnter}
-            onMouseLeave = {handleMouseLeave}
+          <svg 
+            className="w-6 h-6" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24" 
+            xmlns="http://www.w3.org/2000/svg"
           >
-            get started
-            <span
-              style={{
-                content: '""',
-                position: "absolute",
-                top: "0",
-                left: "0",
-                width: "100%",
-                height: "100%",
-                backgroundColor: "black",
-                transform: hover ? "scaleX(1)" : "scaleX(0)", 
-                transformOrigin: "right center",
-                transition: "transform 0.3s ease", 
-                zIndex: "-1",
-              }}
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} 
             />
+          </svg>
+        </button>
 
-          </button>
+   
+        <div className="hidden md:flex items-center space-x-16 mr-10">
+          <Link to="/explore" className="text-inherit no-underline cursor-pointer hover:text-gray-600 transition-colors">
+            <span className="text-lg">explore</span>
+          </Link>
+          <Link to="/aboutus" className="text-inherit no-underline cursor-pointer hover:text-gray-600 transition-colors">
+            <span className="text-lg">about us</span>
+          </Link>
+          <Link to="/getstarted" className="text-inherit no-underline">
+            <button
+              className={`relative overflow-hidden py-2 px-6 text-lg font-normal rounded-lg cursor-pointer transition-all duration-300 transform ${
+                hover
+                  ? "bg-black text-white scale-105 shadow-lg"
+                  : "bg-transparent text-black scale-100"
+              }`}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              get started
+            </button>
+          </Link>
+        </div>
+      </div>
+
+      <div 
+        className={`md:hidden bg-amber-100 shadow-lg transition-all duration-300 ${
+          mobileMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+        }`}
+      >
+        <div className="flex flex-col px-6 py-4 space-y-4">
+          <Link 
+            to="/explore" 
+            className="text-inherit no-underline py-2 hover:text-gray-600"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            explore
+          </Link>
+          <Link 
+            to="#" 
+            className="text-inherit no-underline py-2 hover:text-gray-600"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            about us
+          </Link>
+          <Link 
+            to="/getstarted" 
+            className="text-inherit no-underline"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <button className="w-full bg-black text-white py-2 px-4 rounded-lg">
+              get started
+            </button>
           </Link>
         </div>
       </div>

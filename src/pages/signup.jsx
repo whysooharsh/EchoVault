@@ -1,108 +1,29 @@
-function signup() {
-    return (
-      <div
-        style={{
-          margin: "0px",
-          padding: "0px",
-          minHeight: "100vh",
-          width: "100vw",
-          backgroundColor: "wheat",
-          display: "flex",
-          flexDirection: "column",
-          paddingTop: "60px",
-          overflow : "hidden",
-        }}
-      >
-        <style>{`
-              * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                font-family: Fredoka;
-              }
-              body {
-                background-color: wheat;
-              }
-            `}</style>
-  
-        <div
-          style={{
-            padding: "5rem",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <div
-            style={{
-              fontSize: "1.4rem",
-              padding: "1.2rem",
-            }}
-          >
-            Create an account
-          </div>
-          <div
-            style={{
-              height: "480px",
-              width: "25%",
-              padding: "0 40px 40px 40px",
-              border: "1px solid black",
-              borderRadius: "0.8rem",
-              boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
-              backdropFilter: "blur(10px)", 
-              backgroundColor: "transparent", 
-              overflow : "hidden",
-            }}
-          >
-            <form onSubmit={""}>
-              <input
-                style={{
-                  marginTop : "1.2rem",
-                  padding: "1rem 2rem",
-                  width: "100%",
-                  borderRadius: "0.4rem",
-                  border: "1px solid #ccc",
-                  overflow : "hidden",
-                  background : "transparent",
-                }}
-                type="text"
-                name="Email"
-                placeholder="Email address*"
-                required
-              />
-              <input
-                style={{
-                  marginTop : "1.2rem",
-                  padding: "1rem 2rem",
-                  width: "100%",
-                  borderRadius: "0.4rem",
-                  border: "1px solid #ccc",
-                  overflow : "hidden",
-                  background : "transparent",
-                }}
-                type="password"
-                name="password"
-                placeholder="Password*"
-                required
-              />
-              <button style={{
-                marginTop : "1.2rem",
-                padding: "1rem 2rem",
-                width: "100%",
-                borderRadius: "0.4rem",
-                border: "1px solid #ccc",
-                overflow : "hidden",
-                background : "red",
+import React, { useState } from "react";
 
-
-              }}>SignUp</button>
+function Signup () {
+  return (
+    <div className="min-h-screen w-full bg-[wheat] flex flex-col pt-16 selection:text-amber-600">
+      <div className="max-w-md mx-auto w-full p-6 my-8">
+        <div className="bg-white bg-opacity-90 backdrop-blur-sm rounded-xl shadow-lg p-8">
+            <h1 className="text-3xl font-bold text-center">Join echo.vault</h1>
+            <p className="text-center text-neutral-500 p-2">Start by creating your time capsules today.</p>
+            <form>
+                <div>
+                  <label>
+                  </label>
+                  <input 
+                    type = "text"
+                    id = "name"
+                    name="name"
+                    className=""
+                    required
+                    />
+                </div>
             </form>
           </div>
-        </div>
       </div>
-    );
-  }
-  
-  export default signup;
-  
+    </div>
+  );
+}
+
+export default Signup;

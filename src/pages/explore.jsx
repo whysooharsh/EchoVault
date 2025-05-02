@@ -1,52 +1,16 @@
-function Explore(){
-    return (
-        
-    <div
-      style={{
-        margin: "0px",
-        padding: "0px",
-        height: "100vh",
-        width: "100vw",
-        backgroundColor: "wheat",
+import React from "react";
 
-      }}>
-      <style>{`
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          background-color: wheat;
-          font-family: Fredoka;
-        }
-      `}</style>
-
-        <div
-        style={{
-            marginTop : "4rem",
-            padding : "5rem",
-            display : "block",
-            justifyContent : "center",
-            textAlign : "center",
-            width : "100%",
-            marginBottom : "0.5rem",
-            
-        }}>
-            <div
-            style={{
-                fontSize : "4rem",
-                display : "flex",
-                alignItems : "center",
-                justifyContent : "center",
-                textAlign : "center",
-
-            }}> Your Capsules
-            </div>
-            <div style={{
-                padding : "4rem",
-                fontSize : "2rem",
-            }}>Bruhh</div>
+function Explore() {
+  return (
+    <div className="min-h-screen w-full bg-[wheat] flex flex-col pt-16 selection:text-amber-600">
+      <div className="flex flex-col justify-center items-center p-6 md:p-10">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal py-8">
+          Explore Time Capsules
+        </h1>
+          
         </div>
-        </div>
-    );
+    </div>
+  );
 }
+
 export default Explore;
