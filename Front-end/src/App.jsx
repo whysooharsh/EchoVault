@@ -1,3 +1,4 @@
+import React from "react";
 import Homepage from "./pages/homepage";
 import Aboutus from "./pages/aboutus";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
