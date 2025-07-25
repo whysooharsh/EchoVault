@@ -8,17 +8,7 @@ function Signup () {
             <h1 className="text-3xl font-bold text-center">Join echo.vault</h1>
             <p className="text-center text-neutral-500 p-2">Start by creating your time capsules today.</p>
             <form>
-                <div>
-                  <label>
-                  </label>
-                  <input 
-                    type = "text"
-                    id = "name"
-                    name="name"
-                    className=""
-                    required
-                    />
-                </div>
+              
             </form>
           </div>
       </div>
