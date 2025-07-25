@@ -3,9 +3,11 @@ import {Outlet} from "react-router-dom";
 
 function Layout() {
   return (
-    <main>
+    <main className="min-h-screen w-full bg-[wheat] flex flex-col">
       <Navbar />
-      <Outlet />
+      <div className="flex-1 flex flex-col">
+        <Outlet />
+      </div>
     </main>
   );
 }
