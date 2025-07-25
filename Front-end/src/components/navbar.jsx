@@ -63,9 +63,6 @@ function Navbar() {
 
    
         <div className="hidden md:flex items-center space-x-16 mr-10">
-          <Link to="/explore" className="text-inherit no-underline cursor-pointer hover:text-gray-600 transition-colors">
-            <span className="text-lg">explore</span>
-          </Link>
           <Link to="/aboutus" className="text-inherit no-underline cursor-pointer hover:text-gray-600 transition-colors">
             <span className="text-lg">about us</span>
           </Link>

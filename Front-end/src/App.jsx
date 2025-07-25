@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/login";
 import Layout from "./layout";
 import Signup from "./pages/signup";
-import Explore from "./pages/explore";
 import Dashboard from "./pages/dashboard";
 import GetStarted from "./pages/getstarted";
 import ProtectedRoute from "./ProtectedRoute";
@@ -18,7 +17,6 @@ function App() {
           <Route path="/aboutus" element={<Aboutus />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/explore" element={<Explore />} />
           <Route path="/getstarted" element={<GetStarted />} />
           <Route
             path="/dashboard"

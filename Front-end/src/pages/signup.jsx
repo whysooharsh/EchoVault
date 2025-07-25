@@ -1,8 +1,20 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 
 
-function Signup() {
+function Signup() { 
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function signup() {
+      try{
+
+      } catch(error){
+
+      }
+  }
+
   return (
     <section className="min-h-screen w-full bg-[wheat] flex flex-col justify-center items-center selection:text-amber-600">
       <div className="w-full max-w-md mx-auto md:max-w-sm md:px-0 md:w-96 sm:px-4">
