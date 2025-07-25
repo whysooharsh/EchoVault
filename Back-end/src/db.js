@@ -16,6 +16,10 @@ const userSchema = new Schema({
 const userModel = mongoose.model("User", userSchema);
 
 const contentSchema = new Schema ({
+    title : {
+        type : String, 
+        required : true,
+    },
     message : {
         type : String, 
         required : true, 
