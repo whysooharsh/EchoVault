@@ -131,7 +131,16 @@ app.post("/api/v1/content", authMiddleware, async (req, res) => {
   }
 });
 
- 
+app.get("/api/v1/content", authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const content = await contentModel.find({ userId }).sort({ unlockAt: 1 });
+    res.status(200).json({ content });
+  } catch (error) {
+    console.error("Error fetching content:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 
 app.delete("/api/v1/content/:id", authMiddleware, async (req, res) => {
   try {
