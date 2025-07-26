@@ -23,8 +23,5 @@ package-json.lock
 *.sw?
 eslint.config.js
 vite.config.js
-index.html
-package-lock.json
-package.json
 _metadata.json
 .env
