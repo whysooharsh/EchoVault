@@ -28,10 +28,10 @@ function EnhancedTimeCapsuleAnimation() {
 
       getRandomColor() {
         const colors = [
-          "rgba(59, 130, 246, 1)", // Blue
-          "rgba(251, 191, 36, 1)", // Amber
-          "rgba(239, 68, 68, 1)", // Red
-          "rgba(139, 92, 246, 1)", // Purple
+          "rgba(59, 130, 246, 1)",
+          "rgba(251, 191, 36, 1)",
+          "rgba(239, 68, 68, 1)",
+          "rgba(139, 92, 246, 1)",
         ];
         return colors[Math.floor(Math.random() * colors.length)];
       }
@@ -130,7 +130,6 @@ function EnhancedTimeCapsuleAnimation() {
       const hourHandLength = radius * 0.4;
       const minuteHandLength = radius * 0.6;
 
-      // Hour hand
       ctx.beginPath();
       ctx.moveTo(centerX, centerY);
       ctx.lineTo(
@@ -141,7 +140,6 @@ function EnhancedTimeCapsuleAnimation() {
       ctx.lineWidth = 3;
       ctx.stroke();
 
-      // Minute hand
       ctx.beginPath();
       ctx.moveTo(centerX, centerY);
       ctx.lineTo(
@@ -158,7 +156,6 @@ function EnhancedTimeCapsuleAnimation() {
       ctx.fill();
     };
 
-    // hard to come up logic
     const drawFlowingParticles = (timestamp) => {
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
@@ -189,7 +186,6 @@ function EnhancedTimeCapsuleAnimation() {
           return distToCenter > radius || Math.random() > 0.1;
         });
 
-        // can tweak around here
         if (particles.length > 150) {
           particles.shift();
         }
@@ -215,10 +211,8 @@ function EnhancedTimeCapsuleAnimation() {
     setCanvasDimensions();
     animate(0);
 
-    // Handle window resize
     window.addEventListener("resize", setCanvasDimensions);
 
-    // Cleanup
     return () => {
       window.removeEventListener("resize", setCanvasDimensions);
       cancelAnimationFrame(animationFrameId);

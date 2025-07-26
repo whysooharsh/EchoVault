@@ -29,9 +29,7 @@ export default function Card({ title, description, unlockTime }) {
           } [transform-style:preserve-3d]`}
           style={{ perspective: "1200px" }}
         >
-          {/* FRONT */}
           <div className="absolute w-full h-full [backface-visibility:hidden] rounded-2xl overflow-hidden bg-white shadow-lg border border-gray-200 flex flex-col transition-all duration-300 group-hover:shadow-xl group-hover:border-gray-300">
-            {/* Header */}
             <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
               <div
                 className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
@@ -56,7 +54,6 @@ export default function Card({ title, description, unlockTime }) {
               </span>
             </div>
 
-            {/* Content */}
             <div className="flex-1 flex flex-col justify-center items-center text-center px-6 py-8">
               <div
                 className={`w-16 h-16 rounded-full flex items-center justify-center mb-6 ${
@@ -107,7 +104,6 @@ export default function Card({ title, description, unlockTime }) {
               <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
             </div>
 
-            {/* Footer */}
             <div className="px-6 py-4 bg-gray-50/50">
               <div className="text-center">
                 <span className="text-xs text-gray-400 uppercase tracking-wide font-medium">
@@ -117,10 +113,8 @@ export default function Card({ title, description, unlockTime }) {
             </div>
           </div>
 
-          {/* BACK - Only for locked cards */}
           {!isUnlocked && (
             <div className="absolute w-full h-full [transform:rotateY(180deg)] [backface-visibility:hidden] rounded-2xl bg-white border border-gray-200 shadow-lg flex flex-col">
-              {/* Header */}
               <div className="px-6 py-4 border-b border-gray-100">
                 <div className="flex justify-between items-center">
                   <h3 className="text-lg font-bold text-black">{title}</h3>
@@ -148,7 +142,6 @@ export default function Card({ title, description, unlockTime }) {
                 </div>
               </div>
 
-              {/* Content */}
               <div className="flex-1 px-6 py-6">
                 <div className="h-full flex flex-col justify-center items-center text-center">
                   <div className="w-20 h-20 rounded-full bg-gray-50 border-2 border-gray-200 flex items-center justify-center mb-6">
@@ -197,14 +190,12 @@ export default function Card({ title, description, unlockTime }) {
         </div>
       </div>
 
-      {/* Popup for unlocked cards */}
       {showPopup && isUnlocked && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div
             className="bg-white rounded-2xl shadow-2xl border border-gray-200 max-w-md w-full max-h-[80vh] overflow-hidden animate-in fade-in duration-300"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header */}
             <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
               <div className="flex items-center">
                 <div className="w-3 h-3 rounded-full bg-green-400 mr-3"></div>
@@ -230,7 +221,6 @@ export default function Card({ title, description, unlockTime }) {
               </button>
             </div>
 
-            {/* Content */}
             <div className="px-6 py-6 max-h-[60vh] overflow-y-auto">
               <div className="mb-6">
                 <div className="flex items-center mb-3">
@@ -266,7 +256,6 @@ export default function Card({ title, description, unlockTime }) {
               </div>
             </div>
 
-            {/* Footer */}
             <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50">
               <button className="w-full bg-black text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200 flex items-center justify-center">
                 <svg

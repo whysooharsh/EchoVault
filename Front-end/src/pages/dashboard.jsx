@@ -35,7 +35,6 @@ function Dashboard() {
       setContentList(response.data.content || []);
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching content:", error);
       setLoading(false);
     }
   }
@@ -81,7 +80,6 @@ function Dashboard() {
   return (
     <section className="min-h-screen bg-[wheat] p-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black mb-2">
