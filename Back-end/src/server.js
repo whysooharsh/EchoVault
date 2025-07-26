@@ -9,7 +9,13 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+const cors = require("cors");
+
+app.use(cors({
+  origin: [ "https://echovault-pied.vercel.app/", "http://localhost:5173"],
+  credentials: true
+}));
+
 
 const saltRounds = 10;
 const JWT_SECRET = process.env.JWT_SECRET;
