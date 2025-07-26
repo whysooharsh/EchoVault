@@ -27,3 +27,4 @@ index.html
 package-lock.json
 package.json
 _metadata.json
+.env
