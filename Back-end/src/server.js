@@ -5,9 +5,11 @@ const bcrypt = require("bcrypt");
 const { userModel, contentModel } = require("./db");
 const authMiddleware = require("./middleware");
 const jwt = require("jsonwebtoken");
+const cors = require("cors");
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const saltRounds = 10;
 const JWT_SECRET = process.env.JWT_SECRET;
