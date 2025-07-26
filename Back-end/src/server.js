@@ -12,7 +12,7 @@ app.use(express.json());
 const cors = require("cors");
 
 app.use(cors({
-  origin: [ "https://echovault-pied.vercel.app/", "http://localhost:5173"],
+  origin: [ "https://echovault-pied.vercel.app", "http://localhost:5173"],
   credentials: true
 }));
 
