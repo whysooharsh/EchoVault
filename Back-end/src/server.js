@@ -8,14 +8,25 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 let generateResponse;
 
-(async () => {
-  const geminiModule = await import("./utils/gemini.mjs");
-  generateResponse = geminiModule.generateResponse;
-})();
+async function loadGemini() {
+  try {
+    const geminiModule = await import("./utils/gemini.mjs");
+    generateResponse = geminiModule.generateResponse;
+  } catch (err) {
+    generateResponse = undefined;
+  }
+}
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+const temp = {
+  origin : ['http://localhost:5000', 'https://echovault-ai.vercel.app'], 
+  methods : ['GET', 'POST', 'PUT', 'DELETE'], 
+  allowedHeaders : ['Content-Type', 'Authorization'], 
+  credentials : true, 
+}
+app.use(cors(temp));
 
 const saltRounds = 10;
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -114,7 +125,7 @@ app.post("/api/v1/content", authMiddleware, async (req, res) => {
     const newContent = await contentModel.create({
       title,
       message,
-      unlockAt: new Date(unlockAt),
+      unlockAt: req.body.unlockAt,
       userId: req.user.id,
     });
 
@@ -170,6 +181,11 @@ app.delete("/api/v1/content/:id", authMiddleware, async (req, res) => {
 
 app.post("/api/generate", async (req, res) => {
   try {
+    if (!generateResponse) {
+      return res
+        .status(503)
+        .json({ error: "Gemini AI is not ready. Please try again later." });
+    }
     const { query, lockedMessage, conversationHistory } = req.body;
 
     if (!query || !lockedMessage) {
@@ -188,10 +204,14 @@ app.post("/api/generate", async (req, res) => {
   }
 });
 
-connectDB()
-  .then(() => {
+async function startServer() {
+  try {
+    await loadGemini();
+    await connectDB();
     app.listen(PORT, () => {});
-  })
-  .catch((error) => {
+  } catch (err) {
     process.exit(1);
-  });
+  }
+}
+
+startServer();

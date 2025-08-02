@@ -21,9 +21,7 @@ export default function Card({ title, description, unlockTime }) {
       description,
       unlockTime
     };
-    
-    ("Navigating to chat with card data:", cardData);
-    ("Description content:", description);
+
     
     navigate('/chat', { 
       state: { 

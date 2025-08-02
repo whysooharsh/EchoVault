@@ -61,18 +61,19 @@ function Navbar() {
           >
             <span className="text-lg">about us</span>
           </Link>
-          <Link to="/getstarted" className="text-inherit no-underline">
-            <button
-              className={`relative overflow-hidden py-2 px-6 text-lg font-normal rounded-lg cursor-pointer transition-all duration-300 transform ${
-                hover
-                  ? "bg-black text-white scale-105 shadow-lg"
-                  : "bg-transparent text-black scale-100"
-              }`}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              get started
-            </button>
+          <Link
+            to="/getstarted"
+            className={`relative overflow-hidden py-2 px-6 text-lg font-normal rounded-lg cursor-pointer transition-all duration-300 transform text-inherit no-underline ${
+              hover
+                ? "bg-black text-white scale-105 shadow-lg"
+                : "bg-transparent text-black scale-100"
+            }`}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            role="button"
+            tabIndex={0}
+          >
+            get started
           </Link>
         </div>
       </div>
@@ -98,12 +99,6 @@ function Navbar() {
             onClick={() => setMobileMenuOpen(false)}
           >
             about us
-          </Link>
-          <Link
-            to="/getstarted"
-            className="text-black no-underline"
-            onClick={() => setMobileMenuOpen(false)}
-          >
           </Link>
         </div>
       </div>

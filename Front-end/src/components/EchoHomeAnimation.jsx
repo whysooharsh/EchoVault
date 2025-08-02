@@ -8,11 +8,6 @@ function EnhancedTimeCapsuleAnimation() {
     const ctx = canvas.getContext("2d");
     let animationFrameId;
     let particles = [];
-    const setCanvasDimensions = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      initParticles();
-    };
 
     class Particle {
       constructor() {
@@ -67,9 +62,16 @@ function EnhancedTimeCapsuleAnimation() {
       }
     };
 
+
+    const setCanvasDimensions = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      initParticles();
+    };
+
     const drawConnections = () => {
       for (let i = 0; i < particles.length; i++) {
-        for (let j = i; j < particles.length; j++) {
+        for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const distance = Math.sqrt(dx * dx + dy * dy);
@@ -156,13 +158,13 @@ function EnhancedTimeCapsuleAnimation() {
       ctx.fill();
     };
 
-    const drawFlowingParticles = (timestamp) => {
+    const drawFlowingParticles = () => {
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       const radius = Math.min(canvas.width, canvas.height) * 0.12;
 
-      for (let i = 0; i < 2; i++) {
-        const angle = Math.random() * Math.PI * 3;
+      for (let i = 0; i < 1; i++) {
+        const angle = Math.random() * Math.PI * 2;
         const distance = Math.max(canvas.width, canvas.height) * 0.3;
 
         const particle = new Particle();
@@ -178,17 +180,17 @@ function EnhancedTimeCapsuleAnimation() {
         particle.speedY = (dy / dist) * (Math.random() * 0.5 + 0.5);
 
         particles.push(particle);
+      }
 
-        particles = particles.filter((p) => {
-          const distToCenter = Math.sqrt(
-            Math.pow(p.x - centerX, 2) + Math.pow(p.y - centerY, 2)
-          );
-          return distToCenter > radius || Math.random() > 0.1;
-        });
+      particles = particles.filter((p) => {
+        const distToCenter = Math.sqrt(
+          Math.pow(p.x - centerX, 2) + Math.pow(p.y - centerY, 2)
+        );
+        return distToCenter > radius && Math.random() > 0.1;
+      });
 
-        if (particles.length > 150) {
-          particles.shift();
-        }
+      if (particles.length > 150) {
+        particles.shift();
       }
     };
 

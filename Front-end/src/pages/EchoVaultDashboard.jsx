@@ -12,6 +12,7 @@ function Dashboard() {
   const [creating, setCreating] = useState(false);
   const [activeCard, setActiveCard] = useState(null);
   const [showCardModal, setShowCardModal] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetchContent();
@@ -35,7 +36,6 @@ function Dashboard() {
       setContentList(response.data.content || []);
       setLoading(false);
     } catch (error) {
-      ("Failed to fetch content:", error);
       setError("Failed to load content");
       setLoading(false);
     }
@@ -50,9 +50,19 @@ function Dashboard() {
     setCreating(true);
     try {
       const token = localStorage.getItem("token");
-      await axios.post(`${BACKEND_URL}/api/v1/content`, form, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const local = new Date(form.unlockAt);
+      const utc = new Date(form.unlockAt).toISOString();
+
+      await axios.post(
+        `${BACKEND_URL}/api/v1/content`,
+        {
+          ...form,
+          unlockAt: utc,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setForm({ title: "", message: "", unlockAt: "" });
       setShowForm(false);
       fetchContent();
@@ -216,9 +226,7 @@ function Dashboard() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Unlock Date & Time
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2"></label>
                   <CalendarInput
                     name="unlockAt"
                     value={form.unlockAt}

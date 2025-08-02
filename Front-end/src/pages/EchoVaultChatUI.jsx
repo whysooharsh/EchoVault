@@ -8,9 +8,6 @@ function ChatInterface({ activeCard: propActiveCard }) {
   
   const activeCard = propActiveCard || location.state?.activeCard;
   
-  ("Location state:", location.state);
-  ("Active Card from location:", location.state?.activeCard);
-  ("Final activeCard:", activeCard);
   const [message, setMessage] = useState([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -35,9 +32,6 @@ function ChatInterface({ activeCard: propActiveCard }) {
     const lockedMessage = (activeCard && typeof activeCard.description === 'string') 
       ? activeCard.description 
       : "";
-
-    ("Active Card:", activeCard);
-    ("Locked Message being sent:", lockedMessage);
 
     if (!activeCard || !lockedMessage) {
       setMessage((prev) => [
@@ -77,7 +71,6 @@ function ChatInterface({ activeCard: propActiveCard }) {
       };
       setMessage((prev) => [...prev, aiMessage]);
     } catch (err) {
-      ("Chat error:", err.message);
       setMessage((prev) => [
         ...prev,
         {
