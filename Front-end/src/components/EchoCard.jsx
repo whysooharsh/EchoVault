@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Card({ title, description, unlockTime }) {
   const [flipped, setFlipped] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-
+  const navigate = useNavigate();
   const isUnlocked = new Date() >= new Date(unlockTime);
 
   const handleCardClick = () => {
@@ -12,6 +13,23 @@ export default function Card({ title, description, unlockTime }) {
     } else {
       setFlipped(!flipped);
     }
+  };
+
+  const handleChatNavigation = () => {
+    const cardData = {
+      title,
+      description,
+      unlockTime
+    };
+    
+    ("Navigating to chat with card data:", cardData);
+    ("Description content:", description);
+    
+    navigate('/chat', { 
+      state: { 
+        activeCard: cardData
+      }
+    });
   };
 
   return (
@@ -257,7 +275,10 @@ export default function Card({ title, description, unlockTime }) {
             </div>
 
             <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50">
-              <button className="w-full bg-black text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200 flex items-center justify-center">
+              <button 
+                onClick={handleChatNavigation} 
+                className="w-full bg-black text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200 flex items-center justify-center"
+              >
                 <svg
                   className="w-5 h-5 mr-2"
                   fill="none"

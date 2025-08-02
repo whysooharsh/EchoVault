@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Card from "../components/card";
-import CalendarInput from "../components/CalendarInput";
+import Card from "../components/EchoCard";
+import CalendarInput from "../components/EchoCalanderInput";
 import { BACKEND_URL } from "../components/config";
 
 function Dashboard() {
@@ -35,14 +35,10 @@ function Dashboard() {
       setContentList(response.data.content || []);
       setLoading(false);
     } catch (error) {
+      ("Failed to fetch content:", error);
+      setError("Failed to load content");
       setLoading(false);
     }
-  }
-
-  function handleCardClick(card) {
-    if (new Date(card.unlockAt) > new Date()) return;
-    setActiveCard(card);
-    setShowCardModal(true);
   }
 
   function handleInput(e) {

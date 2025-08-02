@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../components/config";
-
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -32,10 +31,12 @@ function Login() {
     }
   }
 
+  useEffect(() => {
   if (redirect) {
     navigate("/dashboard");
-    return null;
   }
+}, [redirect]);
+
 
   return (
     <section className="min-h-screen w-full bg-[wheat] flex flex-col justify-center items-center selection:text-amber-600">

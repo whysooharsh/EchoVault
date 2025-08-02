@@ -1,12 +1,13 @@
-import Homepage from "./pages/homepage";
-import Aboutus from "./pages/aboutus";
+import Homepage from "./pages/EchoVaultHomepage";
+import Aboutus from "./pages/EchoVaultAboutUs";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./pages/login";
+import Login from "./pages/EchoVaultLogin";
 import Layout from "./layout";
-import Signup from "./pages/signup";
-import Dashboard from "./pages/dashboard";
-import GetStarted from "./pages/getstarted";
+import Signup from "./pages/EchoVaultSignup";
+import Dashboard from "./pages/EchoVaultDashboard";
+import GetStarted from "./pages/EchoVaultGetStarted";
 import ProtectedRoute from "./ProtectedRoute";
+import ChatInterface from "./pages/EchoVaultChatUI";
 
 function App() {
   return (
@@ -26,7 +27,15 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/chat" 
+            element = {
+              <ProtectedRoute>
+                <ChatInterface/>
+              </ProtectedRoute>
+            }
+            />
         </Route>
+        
       </Routes>
     </Router>
   );

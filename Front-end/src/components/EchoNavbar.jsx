@@ -12,18 +12,10 @@ function Navbar() {
 
   useEffect(() => {
     const scroll = () => {
-      if (window.scrollY > 50) {
-        setScrolling(true);
-      } else {
-        setScrolling(false);
-      }
+      setScrolling(window.scrollY > 50);
     };
-
     window.addEventListener("scroll", scroll);
-
-    return () => {
-      window.removeEventListener("scroll", scroll);
-    };
+    return () => window.removeEventListener("scroll", scroll);
   }, []);
 
   return (
@@ -85,36 +77,33 @@ function Navbar() {
         </div>
       </div>
 
+     
       <div
-        className={`md:hidden bg-amber-100 shadow-lg transition-all duration-300 ${
-          mobileMenuOpen
-            ? "max-h-64 opacity-100"
-            : "max-h-0 opacity-0 overflow-hidden"
-        }`}
+        className={`md:hidden transition-all origin-top duration-300 transform ${
+          mobileMenuOpen ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0 pointer-events-none"
+        } bg-amber-100 shadow-lg`}
+        style={{ transformOrigin: "top" }}
       >
         <div className="flex flex-col px-6 py-4 space-y-4">
           <Link
-            to="/explore"
-            className="text-inherit no-underline py-2 hover:text-gray-600"
+            to="/getstarted"
+            className="text-black no-underline py-2 hover:text-gray-600"
             onClick={() => setMobileMenuOpen(false)}
           >
-            explore
+            get started
           </Link>
           <Link
-            to="#"
-            className="text-inherit no-underline py-2 hover:text-gray-600"
+            to="/aboutus"
+            className="text-black no-underline py-2 hover:text-gray-600"
             onClick={() => setMobileMenuOpen(false)}
           >
             about us
           </Link>
           <Link
             to="/getstarted"
-            className="text-inherit no-underline"
+            className="text-black no-underline"
             onClick={() => setMobileMenuOpen(false)}
           >
-            <button className="w-full bg-black text-white py-2 px-4 rounded-lg">
-              get started
-            </button>
           </Link>
         </div>
       </div>

@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function GetStarted() {
@@ -23,7 +22,7 @@ function GetStarted() {
                 <br />
                 address and a password.
               </p>
-              <button className="bg-black text-white py-2 px-4 rounded-lg hover:bg-neutral-800 transition cursor-pointer">
+              <button onClick={() => navigate("/signup")} className="bg-black text-white py-2 px-4 rounded-lg hover:bg-neutral-800 transition cursor-pointer">
                 Sign up now
               </button>
             </div>

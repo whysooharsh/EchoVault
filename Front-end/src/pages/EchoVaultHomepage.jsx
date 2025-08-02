@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import EnhancedTimeCapsuleAnimation from "../components/animation";
+import EnhancedTimeCapsuleAnimation from "../components/EchoHomeAnimation";
 
 function Homepage() {
   const navigate = useNavigate();
