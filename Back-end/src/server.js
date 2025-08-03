@@ -21,10 +21,7 @@ const app = express();
 app.use(express.json());
 
 const temp = {
-  origin : ['http://localhost:5000', 'https://echovault-ai.vercel.app'], 
-  methods : ['GET', 'POST', 'PUT', 'DELETE'], 
-  allowedHeaders : ['Content-Type', 'Authorization'], 
-  credentials : true, 
+  origin : ['http://localhost:5173', 'https://echovault-ai.vercel.app']
 }
 app.use(cors(temp));
 
