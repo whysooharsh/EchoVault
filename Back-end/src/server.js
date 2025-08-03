@@ -19,16 +19,28 @@ async function loadGemini() {
 
 const app = express();
 app.use(express.json());
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://echovault-ai.vercel.app',
+  'https://echovault-pied.vercel.app'
+];
 
-const temp = {
-  origin : [
-    'http://localhost:5173',
-    'https://echovault-ai.vercel.app',
-    'https://echovault-pied.vercel.app' 
-  ],
-  credentials: true
-}
-app.use(cors(temp));
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.error("Blocked CORS origin:", origin);
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
 
 const saltRounds = 10;
 const JWT_SECRET = process.env.JWT_SECRET;
