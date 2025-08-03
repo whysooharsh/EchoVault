@@ -21,7 +21,12 @@ const app = express();
 app.use(express.json());
 
 const temp = {
-  origin : ['http://localhost:5173', 'https://echovault-ai.vercel.app']
+  origin : [
+    'http://localhost:5173',
+    'https://echovault-ai.vercel.app',
+    'https://echovault-pied.vercel.app' 
+  ],
+  credentials: true
 }
 app.use(cors(temp));
 
@@ -75,39 +80,50 @@ app.post("/api/v1/signin", async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
+    console.log("Login attempt:", { username, password });
+
     if (!username || !password) {
+      console.log("Missing credentials");
       return res.status(400).json({
         message: "Username and password are required",
       });
     }
+
     const existingUser = await userModel.findOne({ username });
+    console.log("Existing user:", existingUser);
 
     if (!existingUser) {
+      console.log("User does not exist");
       return res.status(411).json({
         message: "User doesn't exist",
       });
     }
 
     const flag = await bcrypt.compare(password, existingUser.password);
+    console.log("Password match:", flag);
 
     if (!flag) {
+      console.log("Incorrect password");
       return res.status(403).json({
         message: "Incorrect password",
       });
     }
 
     const token = jwt.sign({ id: existingUser._id }, JWT_SECRET);
+    console.log("Generated JWT:", token);
 
     return res.status(200).json({
       message: "Login Successful",
       token: token,
     });
   } catch (error) {
+    console.error("Login error:", error);
     return res.status(500).json({
       message: "Internal Server Error",
     });
   }
 });
+
 
 app.post("/api/v1/content", authMiddleware, async (req, res) => {
   try {
