@@ -6,13 +6,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.join(__dirname, "../../.env") });
 
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API);
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API });
 
 async function generateResponse(userQuery, lockedMessageContent, conversationHistory = []) {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     let convo = "";
     if (conversationHistory && conversationHistory.length > 0) {
       convo = "\n**Previous conversation:**\n";
@@ -58,9 +57,12 @@ ${convo}
 
 Respond as their supportive reflection companion:`;
 
-    const result = await model.generateContent(fullPrompt);
-
-    return result.response.text();
+    const interaction = await ai.interactions.create({
+      model: "gemini-3.5-flash",
+      input: fullPrompt,
+    });
+    
+    return interaction.output_text;
   } catch (error) {
     const errorString = error.toString();
     if (errorString.includes("API_KEY_INVALID") || errorString.includes("API key not valid")) {
