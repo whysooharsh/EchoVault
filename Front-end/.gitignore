@@ -21,8 +21,6 @@ package-json.lock
 *.njsproj
 *.sln
 *.sw?
-eslint.config.js
-vite.config.js
 _metadata.json
 .env
 .vercel
