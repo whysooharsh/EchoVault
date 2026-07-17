@@ -9,6 +9,7 @@ export default function CalendarInput({ value, onChange, ...props }) {
         value={value}
         onChange={onChange}
         className="block w-full px-4 py-2 rounded-full border border-gray-300 focus:border-amber-500 focus:outline-none shadow focus:shadow-amber-200 transition"
+        step="1"
         {...props}
       />
     </div>

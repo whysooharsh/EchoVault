@@ -74,29 +74,29 @@ function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[wheat] flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="flex flex-col items-center">
-          <div className="w-12 h-12 border-4 border-gray-300 border-t-black rounded-full animate-spin mb-4"></div>
-          <p className="text-black font-medium">Loading your cards...</p>
+          <div className="w-12 h-12 border-4 border-magical-gold border-t-vintage-ink rounded-full animate-spin mb-4"></div>
+          <p className="text-vintage-ink font-serif italic text-lg">Unlocking the vault...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <section className="min-h-screen bg-[wheat] p-4 sm:p-6 lg:p-8">
+    <section className="min-h-screen bg-transparent p-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12 border-b-2 border-magical-gold/30 pb-6">
           <div>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black mb-2">
-              Your Secret Cards
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-vintage-ink mb-2 drop-shadow-sm">
+              Your Secret Vault
             </h1>
-            <p className="text-gray-600 text-sm sm:text-base">
-              Messages from your past self, unlocked when the time is right
+            <p className="text-vintage-ink/80 italic text-sm sm:text-base font-serif">
+              Messages from your past self, sealed until the time is right...
             </p>
           </div>
           <button
-            className="w-full sm:w-auto px-6 py-3 rounded-lg bg-black text-white font-medium hover:bg-gray-800 transition-colors duration-200 flex items-center justify-center gap-2 shadow-lg"
+            className="w-full sm:w-auto px-6 py-3 rounded-md bg-vintage-ink text-[#f5deb3] font-serif hover:bg-[#5a252b] border border-magical-gold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             onClick={() => setShowForm(true)}
           >
             <svg
@@ -133,15 +133,14 @@ function Dashboard() {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-black mb-2">
-              No cards yet
+            <h3 className="text-2xl font-serif text-vintage-ink mb-2">
+              The Vault is Empty
             </h3>
-            <p className="text-gray-600 mb-6 max-w-md mx-auto">
-              Create your first secret card to send a message to your future
-              self
+            <p className="text-vintage-ink/70 italic mb-6 max-w-md mx-auto font-serif">
+              Pen your first secret letter to send a message to your future self.
             </p>
             <button
-              className="px-6 py-3 rounded-lg bg-black text-white font-medium hover:bg-gray-800 transition-colors duration-200"
+              className="px-6 py-3 rounded-md bg-vintage-ink text-[#f5deb3] font-serif hover:bg-[#5a252b] border border-magical-gold transition-all duration-300 shadow-md"
               onClick={() => setShowForm(true)}
             >
               Create Your First Card
@@ -164,14 +163,14 @@ function Dashboard() {
         )}
 
         {showForm && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
             <div
-              className="w-full max-w-md bg-white rounded-2xl shadow-2xl border border-gray-200 max-h-[90vh] overflow-hidden"
+              className="w-full max-w-md bg-[#fdf8e7] rounded-sm shadow-2xl border-4 border-double border-magical-gold/50 max-h-[90vh] overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-                <h2 className="text-xl font-bold text-black">
-                  Create New Card
+              <div className="px-6 py-5 border-b-2 border-magical-gold/30 flex justify-between items-center bg-[#f4ecd8]">
+                <h2 className="text-2xl font-serif text-vintage-ink">
+                  Seal a New Letter
                 </h2>
                 <button
                   type="button"
@@ -196,8 +195,8 @@ function Dashboard() {
 
               <form onSubmit={handleCreate} className="px-6 py-6 space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Card Title
+                  <label className="block text-sm font-serif font-bold text-vintage-ink mb-2">
+                    Letter Title
                   </label>
                   <input
                     type="text"
@@ -205,13 +204,13 @@ function Dashboard() {
                     value={form.title}
                     onChange={handleInput}
                     required
-                    placeholder="Give your card a meaningful title..."
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-black focus:ring-1 focus:ring-black focus:outline-none transition-colors"
+                    placeholder="E.g., To my future self..."
+                    className="w-full px-4 py-3 bg-[#fdf8e7] rounded-sm border border-magical-gold/50 focus:border-vintage-ink focus:ring-1 focus:ring-vintage-ink focus:outline-none transition-colors font-serif"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-serif font-bold text-vintage-ink mb-2">
                     Your Message
                   </label>
                   <textarea
@@ -219,8 +218,8 @@ function Dashboard() {
                     value={form.message}
                     onChange={handleInput}
                     required
-                    placeholder="Write a message to your future self..."
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-black focus:ring-1 focus:ring-black focus:outline-none transition-colors resize-none"
+                    placeholder="Write a message to your future self in ink..."
+                    className="w-full px-4 py-3 bg-[#fdf8e7] rounded-sm border border-magical-gold/50 focus:border-vintage-ink focus:ring-1 focus:ring-vintage-ink focus:outline-none transition-colors resize-none font-serif leading-relaxed"
                     rows={4}
                   />
                 </div>
@@ -235,19 +234,19 @@ function Dashboard() {
                   />
                 </div>
 
-                <div className="pt-4 border-t border-gray-100">
+                <div className="pt-4 border-t-2 border-magical-gold/30">
                   <button
                     type="submit"
                     disabled={creating}
-                    className="w-full px-6 py-3 rounded-lg bg-black text-white font-medium hover:bg-gray-800 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center"
+                    className="w-full px-6 py-3 rounded-md bg-vintage-ink text-[#f5deb3] font-serif hover:bg-[#5a252b] border border-magical-gold disabled:bg-[#a67b80] disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center shadow-md"
                   >
                     {creating ? (
                       <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                        Creating Card...
+                        <div className="w-5 h-5 border-2 border-[#f5deb3] border-t-transparent rounded-full animate-spin mr-2"></div>
+                        Sealing...
                       </>
                     ) : (
-                      "Create Card"
+                      "Apply Wax Seal"
                     )}
                   </button>
                 </div>
@@ -257,15 +256,15 @@ function Dashboard() {
         )}
 
         {showCardModal && activeCard && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
             <div
-              className="w-full max-w-md bg-white rounded-2xl shadow-2xl border border-gray-200 max-h-[90vh] overflow-hidden"
+              className="w-full max-w-md bg-[#fdf8e7] rounded-sm shadow-2xl border-4 border-double border-magical-gold/50 max-h-[90vh] overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+              <div className="px-6 py-5 border-b-2 border-magical-gold/30 flex justify-between items-center bg-[#f4ecd8]">
                 <div className="flex items-center">
-                  <div className="w-3 h-3 rounded-full bg-green-400 mr-3"></div>
-                  <h3 className="text-lg font-bold text-black">
+                  <div className="w-4 h-4 rounded-full bg-green-700/80 mr-3 border border-green-900 shadow-[0_0_8px_rgba(22,101,52,0.5)]"></div>
+                  <h3 className="text-xl font-serif font-bold text-vintage-ink">
                     {activeCard.title}
                   </h3>
                 </div>
@@ -293,32 +292,19 @@ function Dashboard() {
               <div className="px-6 py-6">
                 <div className="mb-6">
                   <div className="flex items-center mb-3">
-                    <svg
-                      className="w-5 h-5 text-gray-400 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                      />
-                    </svg>
-                    <span className="text-sm text-gray-500 font-medium">
-                      Message from Past Self
+                    <span className="text-sm text-vintage-ink/70 font-serif italic">
+                      Message from the past:
                     </span>
                   </div>
-                  <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                    <p className="text-gray-700 leading-relaxed">
+                  <div className="bg-[#f4ecd8] rounded-sm p-5 border border-magical-gold/40 shadow-inner">
+                    <p className="text-gray-900 font-serif leading-relaxed text-lg">
                       {activeCard.message}
                     </p>
                   </div>
                 </div>
 
-                <div className="text-xs text-gray-400 mb-6 text-center">
-                  Unlocked on{" "}
+                <div className="text-xs text-vintage-ink/60 mb-6 text-center font-mono tracking-widest uppercase">
+                  Seal broken on{" "}
                   {new Date(activeCard.unlockAt).toLocaleDateString("en-US", {
                     month: "long",
                     day: "numeric",
@@ -327,9 +313,9 @@ function Dashboard() {
                 </div>
               </div>
 
-              <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50">
+              <div className="px-6 py-5 border-t-2 border-magical-gold/30 bg-[#f4ecd8]">
                 <button
-                  className="w-full bg-black text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200 flex items-center justify-center"
+                  className="w-full bg-vintage-ink text-[#f5deb3] py-3 px-4 rounded-md font-serif hover:bg-[#5a252b] border border-magical-gold transition-all duration-300 flex items-center justify-center shadow-md"
                   onClick={() =>
                     alert(
                       "Chat with your past self (Gemini integration coming soon!)"

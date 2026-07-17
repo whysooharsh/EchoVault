@@ -212,7 +212,11 @@ app.post("/api/generate", async (req, res) => {
 
     res.json({ reply: aiReply });
   } catch (err) {
-    res.status(500).json({ error: err.message || "AI generation failed" });
+    let errorMsg = err.message || "AI generation failed";
+    if (errorMsg.includes("API key not valid") || errorMsg.includes("API_KEY_INVALID")) {
+      errorMsg = "Your Gemini API key is invalid or missing. Please double-check your .env file and restart the server.";
+    }
+    res.status(500).json({ error: errorMsg });
   }
 });
 

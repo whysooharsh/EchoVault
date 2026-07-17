@@ -1,1 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Special+Elite&display=swap');
+
 @import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-mono: "Special Elite", monospace;
+
+  --color-vintage-ink: #2c1e16;
+  --color-magical-gold: #c5a059;
+}
+
+body {
+  background-color: #f5deb3;
+  background-image: url("https://www.transparenttextures.com/patterns/old-wall.png");
+}

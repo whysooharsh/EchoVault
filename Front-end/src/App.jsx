@@ -1,13 +1,7 @@
-import Homepage from "./pages/EchoVaultHomepage";
-import Aboutus from "./pages/EchoVaultAboutUs";
+import { Homepage, Aboutus, Login, Signup, Dashboard, GetStarted, ChatInterface } from "./pages";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./pages/EchoVaultLogin";
 import Layout from "./layout";
-import Signup from "./pages/EchoVaultSignup";
-import Dashboard from "./pages/EchoVaultDashboard";
-import GetStarted from "./pages/EchoVaultGetStarted";
 import ProtectedRoute from "./ProtectedRoute";
-import ChatInterface from "./pages/EchoVaultChatUI";
 
 function App() {
   return (

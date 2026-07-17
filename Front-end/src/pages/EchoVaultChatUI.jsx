@@ -95,7 +95,10 @@ function ChatInterface({ activeCard: propActiveCard }) {
       return response.data;
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        const errorMsg = err.response?.data?.error || "API error";
+        let errorMsg = err.response?.data?.error || "API error";
+        if (typeof errorMsg === 'string' && (errorMsg.includes("API key not valid") || errorMsg.includes("API_KEY_INVALID"))) {
+           errorMsg = "Your Gemini API key is invalid or missing. Please double-check your .env file and restart the server.";
+        }
         throw new Error(errorMsg);
       } else {
         throw new Error("Unexpected error");
@@ -104,46 +107,44 @@ function ChatInterface({ activeCard: propActiveCard }) {
   }
 
   return (
-    <div className="h-screen bg-[wheat] flex justify-center p-6 lg:px-24 overflow-hidden">
+    <div className="h-screen bg-transparent flex justify-center p-6 lg:px-24 overflow-hidden relative">
       <div
         className="
           w-full max-w-4xl h-full flex flex-col
-          bg-white/10        
-          backdrop-blur-md   
-          border border-white/20 
-          rounded-xl shadow-lg shadow-black/20 
-          transition-all duration-300
+          bg-[#fdf8e7]        
+          shadow-2xl shadow-vintage-ink/30 
+          transition-all duration-300 relative z-10
         "
       >
      
-        <div className="flex-shrink-0 relative flex items-center justify-center py-6 px-6 border-b border-white/20">
-          <h1 className="text-xl font-semibold">Conversational Agent</h1>
+        <div className="flex-shrink-0 relative flex flex-col items-center justify-center py-8 px-6 border-b border-vintage-ink/20 bg-transparent z-20">
+          <h1 className="text-4xl font-serif font-bold text-vintage-ink drop-shadow-sm tracking-wide">The Memory Vault</h1>
           
           {activeCard && (
-            <div className="absolute right-6 text-sm text-gray-600 bg-white/20 px-3 py-1 rounded-lg">
-              Chatting about: {activeCard.title}
+            <div className="mt-3 text-sm font-serif italic text-vintage-ink/70 tracking-widest uppercase">
+              ~ {activeCard.title} ~
             </div>
           )}
         </div>
 
 
-        <div className="flex-1 overflow-y-auto px-8 py-6">
-          <div className="max-w-3xl mx-auto space-y-4">
+        <div className="flex-1 overflow-y-auto px-8 py-12" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/cream-paper.png")' }}>
+          <div className="max-w-2xl mx-auto space-y-8">
             {message.length === 0 && (
-              <div className="text-zinc-700 text-center space-y-4">
+              <div className="text-vintage-ink/80 text-center space-y-6 animate-in fade-in duration-1000">
                 {activeCard ? (
-                  <div className="bg-white/20 rounded-lg p-6 border border-white/30">
-                    <h3 className="font-semibold mb-2">💭 Your Past Message:</h3>
-                    <p className="text-sm italic mb-4 bg-white/10 p-3 rounded">
-                      "{activeCard.description}"
+                  <div className="p-8">
+                    <p className="text-xl font-serif italic mb-8 text-vintage-ink leading-relaxed whitespace-pre-wrap">
+                      {activeCard.description}
                     </p>
-                    <p className="text-xs text-gray-600">
-                      You can ask questions like: "Did I achieve this goal?", "How can I improve?", "What should I do next?", or just say "hi" to start reflecting!
+                    <div className="w-16 h-px bg-vintage-ink/30 mx-auto mb-8"></div>
+                    <p className="text-sm font-serif tracking-widest text-vintage-ink/50 uppercase">
+                      The ink has dried. What would you like to ask the magic?
                     </p>
                   </div>
                 ) : (
-                  <div className="text-sm italic">
-                    Chat with your past self. Try sending a text...
+                  <div className="text-xl font-serif italic mt-20 text-vintage-ink/60">
+                    The pages are blank. Begin your incantation...
                   </div>
                 )}
               </div>
@@ -152,45 +153,35 @@ function ChatInterface({ activeCard: propActiveCard }) {
             {message.map((msg) => (
               <div
                 key={msg.id}
-                className={`flex ${
+                className={`flex w-full animate-in fade-in slide-in-from-bottom-2 duration-700 ${
                   msg.type === "user" ? "justify-end" : "justify-start"
                 }`}
               >
-                <div className="flex flex-col items-start max-w-[75%]">
-                  <div
-                    className={`p-3 rounded-xl border ${
-                      msg.type === "ai"
-                        ? "bg-white/90 border-[#E07155]/30 text-[#242021]"
-                        : "bg-[#E39682]/20 text-[#242021]"
-                    }`}
-                  >
-                    <p className="text-sm leading-relaxed font-light">
-                      {msg.content}
-                    </p>
-                  </div>
-                  <div
-                    className={`text-sm font-mono text-[#6E6059] mt-1 ${
-                      msg.type === "user" ? "text-right self-end" : ""
-                    }`}
-                  >
-                    {msg.timestamp.toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </div>
+                <div className={`flex flex-col ${msg.type === "user" ? "items-end" : "items-start"} max-w-[85%]`}>
+                  {msg.type === "user" ? (
+                    <div className="text-right">
+                      <p className="text-lg font-mono text-vintage-ink/80 leading-relaxed whitespace-pre-wrap">
+                        {msg.content}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="text-left">
+                      <p className="text-2xl font-serif text-vintage-ink leading-relaxed whitespace-pre-wrap italic">
+                        {msg.content}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
 
             {isTyping && (
-              <div className="flex justify-start">
-                <div className="flex flex-col items-start max-w-[75%]">
-                  <div className="p-3 rounded-xl border bg-white/90 border-[#E07155]/30 text-[#242021]">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                    </div>
+              <div className="flex justify-start animate-in fade-in duration-500">
+                <div className="flex flex-col items-start">
+                  <div className="text-2xl font-serif text-vintage-ink/50 italic flex space-x-1">
+                    <span className="animate-pulse">.</span>
+                    <span className="animate-pulse" style={{animationDelay: '0.2s'}}>.</span>
+                    <span className="animate-pulse" style={{animationDelay: '0.4s'}}>.</span>
                   </div>
                 </div>
               </div>
@@ -200,33 +191,34 @@ function ChatInterface({ activeCard: propActiveCard }) {
           </div>
         </div>
 
-        <div className="flex-shrink-0 p-6">
-          <div className="max-w-3xl mx-auto">
-            <div className="flex items-center overflow-hidden rounded-2xl backdrop-blur-xl border border-[#E39682]/30 bg-white/20 shadow-lg">
+        <div className="flex-shrink-0 p-8 bg-transparent">
+          <div className="max-w-2xl mx-auto">
+            <div className="flex items-center border-b-2 border-vintage-ink/30 focus-within:border-vintage-ink transition-colors pb-2">
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyPress}
                 placeholder={activeCard 
-                  ? `Ask about "${activeCard.title}" or say "hi" to start...` 
-                  : "are you proud of yourself ?"
+                  ? `Write your inquiry...` 
+                  : "Pen your thoughts here..."
                 }
-                className="flex-1 bg-transparent text-[#242021] placeholder:text-[#6E6059] px-4 py-4 focus:outline-none"
+                className="flex-1 bg-transparent text-vintage-ink font-mono text-lg placeholder:text-vintage-ink/30 px-2 py-2 focus:outline-none"
               />
               <button
                 onClick={handleSend}
                 disabled={!input.trim() || isTyping}
-                className="bg-[#D25D5D] hover:bg-[#bd6c5d] disabled:opacity-30 px-5 py-5 text-white transition-all disabled:cursor-not-allowed"
+                className="text-vintage-ink hover:text-magical-gold disabled:text-vintage-ink/20 px-4 py-2 transition-colors disabled:cursor-not-allowed"
               >
                 <svg
-                  width="18"
-                  height="18"
+                  width="24"
+                  height="24"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.5"
+                  className="transform rotate-90"
                 >
-                  <path d="m22 2-7 20-4-9-9-4 20-7z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 19V5m0 0l-7 7m7-7l7 7" />
                 </svg>
               </button>
             </div>

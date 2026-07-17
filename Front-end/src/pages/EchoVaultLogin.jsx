@@ -32,49 +32,55 @@ function Login() {
   }
 
   useEffect(() => {
-  if (redirect) {
-    navigate("/dashboard");
-  }
-}, [redirect]);
-
+    if (redirect) {
+      navigate("/dashboard");
+    }
+  }, [redirect, navigate]);
 
   return (
-    <section className="min-h-screen w-full bg-[wheat] flex flex-col justify-center items-center selection:text-amber-600">
+    <section className="min-h-screen w-full bg-transparent flex flex-col justify-center items-center selection:text-magical-gold selection:bg-vintage-ink/20">
       {popup.show && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-black/20 animate-fadeIn">
-          <div className="relative px-5 py-4 rounded-lg border border-neutral-200 bg-white text-center font-normal text-base" style={{ minWidth: '220px', maxWidth: '90vw' }}>
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-black/60 backdrop-blur-sm animate-fadeIn">
+          <div className="relative px-6 py-5 border-4 border-double border-magical-gold/50 bg-[#fdf8e7] text-center font-serif text-lg text-vintage-ink shadow-2xl" style={{ minWidth: '250px', maxWidth: '90vw' }}>
             {popup.type === "error" && (
               <button
                 onClick={() => setPopup({ show: false, message: "", type: "error" })}
-                className="mx-auto mb-2 block text-neutral-400 hover:text-black text-lg font-bold bg-transparent border-none cursor-pointer focus:outline-none"
+                className="absolute top-2 right-3 text-vintage-ink/50 hover:text-vintage-ink text-xl font-bold bg-transparent border-none cursor-pointer focus:outline-none transition-colors"
                 aria-label="Close error popup"
               >
                 &times;
               </button>
             )}
-            <div className="mb-1 text-neutral-700 break-words">{popup.message}</div>
+            <div className="mb-1 text-vintage-ink font-serif break-words">
+              {popup.type === "error" ? "❌ " : "✨ "}
+              {popup.message}
+            </div>
           </div>
         </div>
       )}
       <div className="w-full max-w-md mx-auto md:max-w-sm md:px-0 md:w-96 sm:px-4">
-        <div className="bg-neutral-50 bg-opacity-90 backdrop-blur-sm rounded-2xl shadow-xl p-8">
-          <div className="flex flex-col mb-6">
+        <div className="bg-[#fdf8e7] border-4 border-double border-magical-gold/50 shadow-2xl p-8 rounded-sm relative">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-magical-gold to-transparent"></div>
+          <div className="flex flex-col mb-8">
             <div>
-              <h2 className="text-4xl text-black font-bold text-center">Login</h2>
+              <h2 className="text-4xl text-vintage-ink font-serif font-bold text-center drop-shadow-sm">Log In</h2>
+              <p className="text-center text-vintage-ink/70 font-serif italic mt-2">Enter your magical vault</p>
             </div>
           </div>
           <form onSubmit={login}>
             <div className="mt-4 space-y-6">
               <div className="col-span-full">
-                <label className="block mb-3 text-sm font-medium text-gray-600">Username</label>
-                <input type="text" placeholder="username" onChange={(e) => setUsername(e.target.value)}  className="block w-full px-6 py-3 text-black bg-white border border-gray-200 rounded-full appearance-none placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm" />
+                <label className="block mb-2 text-sm font-serif font-bold text-vintage-ink">Username</label>
+                <input type="text" placeholder="Your incantation name" onChange={(e) => setUsername(e.target.value)} className="block w-full px-5 py-3 text-vintage-ink bg-[#f4ecd8] border border-magical-gold/50 rounded-sm appearance-none placeholder:text-vintage-ink/40 focus:border-vintage-ink focus:outline-none focus:ring-1 focus:ring-vintage-ink font-serif" />
               </div>
               <div className="col-span-full">
-                <label className="block mb-3 text-sm font-medium text-gray-600">Password</label>
-                <input type="password" placeholder="******" onChange={(e) => setPassword(e.target.value)}  className="block w-full px-6 py-3 text-black bg-white border border-gray-200 rounded-full appearance-none placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm" />
+                <label className="block mb-2 text-sm font-serif font-bold text-vintage-ink">Password</label>
+                <input type="password" placeholder="••••••••" onChange={(e) => setPassword(e.target.value)} className="block w-full px-5 py-3 text-vintage-ink bg-[#f4ecd8] border border-magical-gold/50 rounded-sm appearance-none placeholder:text-vintage-ink/40 focus:border-vintage-ink focus:outline-none focus:ring-1 focus:ring-vintage-ink font-serif" />
               </div>
-              <div className="col-span-full">
-                <button type="submit" className="items-center justify-center w-full px-6 py-2.5 text-center text-white duration-200 bg-black border-2 border-black rounded-full nline-flex hover:bg-transparent hover:border-black hover:text-black focus:outline-none focus-visible:outline-black text-sm focus-visible:ring-black">Login</button>
+              <div className="col-span-full pt-4 border-t-2 border-magical-gold/30">
+                <button type="submit" className="w-full px-6 py-3 text-center text-[#f5deb3] duration-300 bg-vintage-ink border border-magical-gold rounded-md hover:bg-[#1a120d] focus:outline-none shadow-md font-serif text-lg flex items-center justify-center">
+                  Unlock Vault
+                </button>
               </div>
             </div>
           </form>
