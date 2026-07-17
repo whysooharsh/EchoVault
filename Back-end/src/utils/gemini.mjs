@@ -12,7 +12,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API);
 
 async function generateResponse(userQuery, lockedMessageContent, conversationHistory = []) {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     let convo = "";
     if (conversationHistory && conversationHistory.length > 0) {
       convo = "\n**Previous conversation:**\n";

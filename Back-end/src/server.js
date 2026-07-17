@@ -27,8 +27,16 @@ const PORT = process.env.PORT || 5000;
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    let mongoUri = process.env.MONGODB_URI;
+    if (!mongoUri) {
+      const { MongoMemoryServer } = require('mongodb-memory-server');
+      const mongoServer = await MongoMemoryServer.create();
+      mongoUri = mongoServer.getUri();
+      console.log('Using in-memory MongoDB at', mongoUri);
+    }
+    await mongoose.connect(mongoUri);
   } catch (error) {
+    console.error("MongoDB connection error:", error);
     process.exit(1);
   }
 };
@@ -212,8 +220,11 @@ async function startServer() {
   try {
     await loadGemini();
     await connectDB();
-    app.listen(PORT, () => {});
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
   } catch (err) {
+    console.error("Server startup error:", err);
     process.exit(1);
   }
 }
