@@ -11,6 +11,8 @@ function ChatInterface({ activeCard: propActiveCard }) {
   const [message, setMessage] = useState([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [msgCount, setMsgCount] = useState(0);
+  const MAX_MESSAGES = 3;
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -28,6 +30,7 @@ function ChatInterface({ activeCard: propActiveCard }) {
 
   const handleSend = async () => {
     if (!input.trim()) return;
+    if (msgCount >= MAX_MESSAGES) return;
 
     const lockedMessage = (activeCard && typeof activeCard.description === 'string') 
       ? activeCard.description 
@@ -56,6 +59,7 @@ function ChatInterface({ activeCard: propActiveCard }) {
     setMessage((prev) => [...prev, userMessage]);
     setInput("");
     setIsTyping(true);
+    setMsgCount((c) => c + 1);
 
     try {
       const response = await handleChat({
@@ -95,7 +99,12 @@ function ChatInterface({ activeCard: propActiveCard }) {
       return response.data;
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        let errorMsg = err.response?.data?.error || "API error";
+        const status = err.response?.status;
+        const data = err.response?.data;
+        if (status === 429) {
+          throw new Error(data?.message || "You've reached the free message limit. Please wait before trying again.");
+        }
+        let errorMsg = data?.error || "API error";
         if (typeof errorMsg === 'string' && (errorMsg.includes("API key not valid") || errorMsg.includes("API_KEY_INVALID"))) {
            errorMsg = "Your Gemini API key is invalid or missing. Please double-check your .env file and restart the server.";
         }
@@ -193,35 +202,48 @@ function ChatInterface({ activeCard: propActiveCard }) {
 
         <div className="flex-shrink-0 p-8 bg-transparent">
           <div className="max-w-2xl mx-auto">
-            <div className="flex items-center border-b-2 border-vintage-ink/30 focus-within:border-vintage-ink transition-colors pb-2">
-              <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyPress}
-                placeholder={activeCard 
-                  ? `Write your inquiry...` 
-                  : "Pen your thoughts here..."
-                }
-                className="flex-1 bg-transparent text-vintage-ink font-mono text-lg placeholder:text-vintage-ink/30 px-2 py-2 focus:outline-none"
-              />
-              <button
-                onClick={handleSend}
-                disabled={!input.trim() || isTyping}
-                className="text-vintage-ink hover:text-magical-gold disabled:text-vintage-ink/20 px-4 py-2 transition-colors disabled:cursor-not-allowed"
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  className="transform rotate-90"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 19V5m0 0l-7 7m7-7l7 7" />
+            {msgCount >= MAX_MESSAGES ? (
+              <div className="flex items-center justify-center gap-3 border border-vintage-ink/20 rounded px-4 py-3 bg-vintage-ink/5">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-vintage-ink/50 flex-shrink-0">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/>
+                  <line x1="12" y1="16" x2="12.01" y2="16"/>
                 </svg>
-              </button>
-            </div>
+                <p className="text-sm font-serif italic text-vintage-ink/60 text-center">
+                  You've used all {MAX_MESSAGES} free messages for this session. The ink has run dry for now.
+                </p>
+              </div>
+            ) : (
+              <div className="flex items-center border-b-2 border-vintage-ink/30 focus-within:border-vintage-ink transition-colors pb-2">
+                <input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKeyPress}
+                  placeholder={activeCard 
+                    ? `Write your inquiry... (${MAX_MESSAGES - msgCount} message${MAX_MESSAGES - msgCount === 1 ? '' : 's'} remaining)` 
+                    : "Pen your thoughts here..."
+                  }
+                  className="flex-1 bg-transparent text-vintage-ink font-mono text-lg placeholder:text-vintage-ink/30 px-2 py-2 focus:outline-none"
+                />
+                <button
+                  onClick={handleSend}
+                  disabled={!input.trim() || isTyping}
+                  className="text-vintage-ink hover:text-magical-gold disabled:text-vintage-ink/20 px-4 py-2 transition-colors disabled:cursor-not-allowed"
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    className="transform rotate-90"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 19V5m0 0l-7 7m7-7l7 7" />
+                  </svg>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

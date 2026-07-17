@@ -6,6 +6,7 @@ const { userModel, contentModel } = require("./db");
 const authMiddleware = require("./middleware");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
+const rateLimit = require("express-rate-limit");
 let generateResponse;
 
 async function loadGemini() {
@@ -191,7 +192,22 @@ app.delete("/api/v1/content/:id", authMiddleware, async (req, res) => {
   }
 });
 
-app.post("/api/generate", async (req, res) => {
+// Rate limiter: max 3 AI requests per IP per hour
+const aiRateLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 3,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    error: "RATE_LIMIT_EXCEEDED",
+    message: "You've used all 3 free AI messages for this hour. Please wait before chatting again.",
+  },
+  handler: (req, res, next, options) => {
+    res.status(429).json(options.message);
+  },
+});
+
+app.post("/api/generate", aiRateLimiter, async (req, res) => {
   try {
     if (!generateResponse) {
       return res
